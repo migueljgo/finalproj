@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Home</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: headerAuthenticated"></div>
+<div class="text-center text-3xl">
+    <h2>Welcome to the meal plan page!</h2>
+</div>
+<div>
+
+<br />
+<div class="float-right">	
+    <a th:href="@{/mealPlan/new}"class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+    	Add New Plan
+   	</a>
+   	<a th:href="@{/home}" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+    	Back to homepage
+   	</a>
+</div>
+<br />
+<br />
+<div class="overflow-x-auto relative">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="py-3 px-6">
+                    ID
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Day Number
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Meal Number
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Food
+                </th>	
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="mealPlan,itrStat  : ${listMealPlan}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    [[${mealPlan.id}]]
+                </th>
+                <td class="py-4 px-6">
+                    [[${mealPlan.day_number}]]
+                </td>
+                <td class="py-4 px-6">
+                	[[${itrStat.index + 1}]]
+                </td>
+                <td class="py-4 px-6">
+                    $[[${mealPlan.food}]]
+                </td>
+                <td>
+                    <a class="text-cyan-500 hover:text-cyan-400" th:href="@{'/mealPlan/edit/' + ${mealPlan.id}}">Edit</a>
+                    <a class="text-red-500 hover:text-red-400" th:href="@{'/mealPlan/delete/' + ${mealPlan.id}}">Delete</a>
+                </td>		
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
